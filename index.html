@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,20 +25,20 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(0, 0, 0, 0.6);
+      color: #5b8ef0;
       margin-bottom: 8px;
     }
 
     header h1 {
       font-size: 28px;
       font-weight: 700;
-      color: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
     }
 
     header p {
       margin-top: 6px;
       font-size: 14px;
-      color: rgba(0, 0, 0, 0.6);
+      color: #6b7280;
     }
 
     main {
@@ -60,7 +61,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #1a1d2e;
+      background: #F5F5F5;
       border-bottom: 1px solid #1e2130;
     }
 
@@ -71,7 +72,7 @@
     .card-title {
       font-size: 15px;
       font-weight: 600;
-      color: rgba(0, 0, 0, 0.6);
+      color: #ffffff;
       margin-bottom: 4px;
     }
 
@@ -103,7 +104,7 @@
       background: transparent;
       border: 1px solid #2e3250;
       border-radius: 8px;
-      color: rgba(0, 0, 0, 0.6);
+      color: #5b8ef0;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
@@ -113,17 +114,46 @@
     .copy-btn:hover { background: #1e2240; }
     .copy-btn.copied { color: #4ade80; border-color: #4ade80; }
 
-    .empty-state {
-      color: #3a3f5c;
-      font-size: 13px;
-      font-style: italic;
+    .loader {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      position: relative;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        #ffffff 1deg,
+        #A5A5A5 359deg,
+        transparent 359deg
+      );
+      -webkit-mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 3px),
+        #000 calc(100% - 3px)
+      );
+      mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 3px),
+        #000 calc(100% - 3px)
+      );
+      animation: spin 1000ms linear infinite;
     }
+    .loader::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      width: 3px; height: 3px;
+      background: #A5A5A5;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     footer {
       padding: 32px 48px;
       border-top: 1px solid #1e2130;
       font-size: 12px;
-      color: rgba(0, 0, 0, 0.6);
+      color: #3a3f5c;
     }
   </style>
 </head>
@@ -137,15 +167,51 @@
 
 <main id="catalog">
 
-  <!-- Animations will be added here -->
-  <div style="color:#3a3f5c; font-size:14px; font-style:italic; padding: 8px;">
-    Animations coming soon...
+  <!-- Indeterminate Spinner -->
+  <div class="card">
+    <div class="card-preview">
+      <div class="loader"></div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Indeterminate Spinner</div>
+      <div class="card-desc">24px · 3px stroke · 1000ms · LinearEasing</div>
+      <div class="code-block" id="spinner-code">@Composable
+fun IndeterminateLoader(modifier: Modifier = Modifier) {
+    val transition = rememberInfiniteTransition(label = "loader")
+    val rotation by transition.animateFloat(
+        initialValue = 0f, targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing)
+        ), label = "rotation"
+    )
+    Canvas(modifier = modifier.size(24.dp)) {
+        val sw = 3.dp.toPx()
+        val r = (size.minDimension - sw) / 2f
+        rotate(rotation, center) {
+            drawArc(
+                brush = Brush.sweepGradient(
+                    0f to Color(0xFFFFFFFF),
+                    1f to Color(0xFFA5A5A5),
+                    center = center
+                ),
+                startAngle = -1f,
+                sweepAngle = 359f,
+                useCenter = false,
+                topLeft = Offset(sw / 2f, sw / 2f),
+                size = Size(r * 2f, r * 2f),
+                style = Stroke(sw, cap = StrokeCap.Round)
+            )
+        }
+    }
+}</div>
+      <button class="copy-btn" onclick="copyCode(this, document.getElementById('spinner-code').innerText)">Copy KMP Code</button>
+    </div>
   </div>
 
 </main>
 
 <footer>
-  Copyright ©2026, Eko Health, Inc. All rights reserved · Internal Design Handoff · Not for distribution
+  Eko Devices · Internal Design Handoff · Not for distribution
 </footer>
 
 <script>
