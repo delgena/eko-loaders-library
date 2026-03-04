@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eko Motion Catalog</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: rgba(0, 0, 0, 0.6);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 40px 48px 32px;
+      border-bottom: 1px solid #1e2130;
+    }
+
+    .logo {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    header p {
+      margin-top: 6px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    main {
+      padding: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: #161822;
+      border: 1px solid #1e2130;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .card-preview {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1d2e;
+      border-bottom: 1px solid #1e2130;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .code-block {
+      position: relative;
+      background: #0f1117;
+      border: 1px solid #1e2130;
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      color: #a9b1d6;
+      line-height: 1.6;
+      max-height: 160px;
+      overflow-y: auto;
+      white-space: pre;
+    }
+
+    .copy-btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 9px;
+      background: transparent;
+      border: 1px solid #2e3250;
+      border-radius: 8px;
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover { background: #1e2240; }
+    .copy-btn.copied { color: #4ade80; border-color: #4ade80; }
+
+    .empty-state {
+      color: #3a3f5c;
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid #1e2130;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Eko Devices</div>
+  <h1>Motion Catalog</h1>
+  <p>Live animation previews with KMP-ready code for engineers.</p>
+</header>
+
+<main id="catalog">
+
+  <!-- Animations will be added here -->
+  <div style="color:#3a3f5c; font-size:14px; font-style:italic; padding: 8px;">
+    Animations coming soon...
+  </div>
+
+</main>
+
+<footer>
+  Copyright ©2026, Eko Health, Inc. All rights reserved · Internal Design Handoff · Not for distribution
+</footer>
+
+<script>
+  function copyCode(btn, code) {
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy KMP Code';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
