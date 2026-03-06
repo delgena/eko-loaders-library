@@ -10,50 +10,69 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: #FAFAFA;
-      color: rgba(0,0,0,0.6);
+      color: rgba(0,0,0,0.7);
       min-height: 100vh;
     }
 
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(24px, 6vw, 40px) clamp(16px, 6vw, 48px) 40px;
+    }
+
     header {
-      padding: 40px 48px 32px;
+      margin-bottom: 24px;
+      text-align: center;
     }
     .logo {
       font-size: 13px; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: #5b8ef0; margin-bottom: 8px;
+      color: #04865F; margin-bottom: 8px;
     }
-    header h1 { font-size: 28px; font-weight: 700; color: rgba(0,0,0,0.6); }
-    header p  { margin-top: 6px; font-size: 14px; color: rgba(0,0,0,0.6); }
+    header h1 {
+      font-size: clamp(24px, 3.2vw, 28px);
+      font-weight: 700;
+      color: rgba(0,0,0,0.8);
+    }
+    header p  {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(0,0,0,0.6);
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     main {
-      padding: 48px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 24px;
-      max-width: 1200px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 360px));
+      justify-content: center;
+      gap: clamp(16px, 3vw, 24px);
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #E7E7E7;
+      border: 1px solid rgba(0,0,0,0.06);
       border-radius: 16px;
       overflow: hidden;
+      transition: border-color 0.2s ease;
     }
 
     .tab-bar {
       display: flex;
-      border-bottom: 1px solid #FFFFFF;
+      border-bottom: 1px solid #E7E7E7;
     }
     .tab-btn {
       flex: 1; padding: 10px;
       font-size: 12px; font-weight: 700;
-      color: rgb(4 134 95);
+      color: rgba(4,134,95,0.65);
       background: transparent; border: none;
       cursor: pointer; transition: all 0.15s;
       border-bottom: 2px solid transparent;
       margin-bottom: -1px;
     }
-    .tab-btn:hover { color: rgba(0,0,0,0.6); }
+    .tab-btn:hover { color: #04865F; }
     .tab-btn.active { color: #04865F; border-bottom-color: #04865F; }
 
     .tab-panel { display: none; }
@@ -78,7 +97,7 @@
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
-      padding: 14px;
+      padding: 14px 16px;
       font-family: 'SF Mono', 'Fira Code', monospace;
       font-size: 12px;
       color: rgba(0,0,0,0.6);
@@ -87,15 +106,44 @@
       overflow-y: auto;
       white-space: pre;
     }
-    .copy-btn {
-      margin-top: 10px; width: 100%; padding: 9px;
-      background: transparent; border: 1px solid #e5e7eb;
-      border-radius: 32px; color: #5b8ef0;
-      font-size: 13px; font-weight: 500;
-      cursor: pointer; transition: all 0.2s;
+    .btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      background: transparent;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
     }
-    .copy-btn:hover { background: #f0f4ff; }
-    .copy-btn.copied { color: #16a34a; border-color: #16a34a; }
+    .btn-primary {
+      background: #04865F;
+      color: #FFFFFF;
+      border-color: #04865F;
+    }
+    .btn-primary:hover {
+      background: #03684a;
+      border-color: #03684a;
+    }
+    .btn-secondary {
+      color: #04865F;
+      border-color: rgba(4,134,95,0.35);
+      background: transparent;
+    }
+    .btn-secondary:hover {
+      background: rgba(4,134,95,0.05);
+      border-color: #04865F;
+    }
+    .copy-btn.copied {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #FFFFFF;
+    }
 
     /* ── Spinner ── */
     .loader {
@@ -140,17 +188,29 @@
     }
 
     footer {
-      padding: 32px 48px;
+      margin-top: 40px;
+      padding-top: 24px;
       border-top: 1px solid #e5e7eb;
-      font-size: 12px; color: rgba(0,0,0,0.3);
+      font-size: 12px;
+      color: rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .code-block {
+        max-height: 220px;
+        font-size: 11px;
+      }
     }
   </style>
 </head>
 <body>
 
+<div class="page">
+
 <header>
   <div class="logo">Eko Devices</div>
-  <h1>Motion Catalog</h1>
+  <h1>Zenith animation library</h1>
   <p>Live animation previews with KMP-ready code for engineers.</p>
 </header>
 
@@ -158,13 +218,34 @@
 
   <!-- ── Indeterminate Spinner ── -->
   <div class="card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this, 'spinner-default')">Default</button>
-      <button class="tab-btn" onclick="switchTab(this, 'spinner-small')">Small</button>
+    <div class="tab-bar" role="tablist">
+      <button
+        class="tab-btn active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="spinner-default"
+        id="spinner-default-tab"
+        tabindex="0"
+        onclick="switchTab(this, 'spinner-default')"
+      >Default</button>
+      <button
+        class="tab-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="spinner-small"
+        id="spinner-small-tab"
+        tabindex="-1"
+        onclick="switchTab(this, 'spinner-small')"
+      >Small</button>
     </div>
 
     <!-- Default tab -->
-    <div id="spinner-default" class="tab-panel active">
+    <div
+      id="spinner-default"
+      class="tab-panel active"
+      role="tabpanel"
+      aria-labelledby="spinner-default-tab"
+    >
       <div class="card-preview preview-light">
         <div class="loader default"></div>
       </div>
@@ -199,12 +280,29 @@ fun IndeterminateLoader(modifier: Modifier = Modifier) {
         }
     }
 }</div>
-        <button class="copy-btn" onclick="copyCode(this, document.getElementById('spinner-default-code').innerText)">Copy KMP Code</button>
+        <button
+          class="btn btn-primary copy-btn"
+          data-label="Copy KMP Code"
+          onclick="copyCode(this, document.getElementById('spinner-default-code').innerText)"
+        >
+          Copy KMP Code
+        </button>
+        <button
+          class="btn btn-secondary"
+          onclick="downloadCode('IndeterminateLoader.kt', document.getElementById('spinner-default-code').innerText)"
+        >
+          Download .kt
+        </button>
       </div>
     </div>
 
     <!-- Small tab -->
-    <div id="spinner-small" class="tab-panel">
+    <div
+      id="spinner-small"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="spinner-small-tab"
+    >
       <div class="card-preview preview-light">
         <div class="loader small"></div>
       </div>
@@ -239,20 +337,53 @@ fun IndeterminateLoaderSmall(modifier: Modifier = Modifier) {
         }
     }
 }</div>
-        <button class="copy-btn" onclick="copyCode(this, document.getElementById('spinner-small-code').innerText)">Copy KMP Code</button>
+        <button
+          class="btn btn-primary copy-btn"
+          data-label="Copy KMP Code"
+          onclick="copyCode(this, document.getElementById('spinner-small-code').innerText)"
+        >
+          Copy KMP Code
+        </button>
+        <button
+          class="btn btn-secondary"
+          onclick="downloadCode('IndeterminateLoaderSmall.kt', document.getElementById('spinner-small-code').innerText)"
+        >
+          Download .kt
+        </button>
       </div>
     </div>
   </div>
 
   <!-- ── EKG Sweep ── -->
   <div class="card">
-    <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab(this, 'ekg-light')">Light</button>
-      <button class="tab-btn" onclick="switchTab(this, 'ekg-dark')">Dark</button>
+    <div class="tab-bar" role="tablist">
+      <button
+        class="tab-btn active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="ekg-light"
+        id="ekg-light-tab"
+        tabindex="0"
+        onclick="switchTab(this, 'ekg-light')"
+      >Light</button>
+      <button
+        class="tab-btn"
+        role="tab"
+        aria-selected="false"
+        aria-controls="ekg-dark"
+        id="ekg-dark-tab"
+        tabindex="-1"
+        onclick="switchTab(this, 'ekg-dark')"
+      >Dark</button>
     </div>
 
     <!-- Light tab -->
-    <div id="ekg-light" class="tab-panel active">
+    <div
+      id="ekg-light"
+      class="tab-panel active"
+      role="tabpanel"
+      aria-labelledby="ekg-light-tab"
+    >
       <div class="card-preview preview-dark">
         <div class="ekg-wrap">
           <svg viewBox="0 0 73 27" xmlns="http://www.w3.org/2000/svg">
@@ -317,12 +448,29 @@ fun EkgSweepAnimation(modifier: Modifier = Modifier) {
 }
 
 private const val EKG_PATH_DATA = "M0 18.2345H20.8054C22.4342 18.2345 23.9004 17.2468 24.5124 15.7373L30.0311 2.12431C30.3742 1.27817 31.5785 1.2965 31.8956 2.1527L40.0772 24.2428C40.3977 25.1082 41.6194 25.1146 41.949 24.2526L46.5168 12.3059C47.1089 10.7573 48.595 9.73447 50.253 9.73447H73"</div>
-        <button class="copy-btn" onclick="copyCode(this, document.getElementById('ekg-light-code').innerText)">Copy KMP Code</button>
+        <button
+          class="btn btn-primary copy-btn"
+          data-label="Copy KMP Code"
+          onclick="copyCode(this, document.getElementById('ekg-light-code').innerText)"
+        >
+          Copy KMP Code
+        </button>
+        <button
+          class="btn btn-secondary"
+          onclick="downloadCode('EkgSweepAnimation.kt', document.getElementById('ekg-light-code').innerText)"
+        >
+          Download .kt
+        </button>
       </div>
     </div>
 
     <!-- Dark tab -->
-    <div id="ekg-dark" class="tab-panel">
+    <div
+      id="ekg-dark"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="ekg-dark-tab"
+    >
       <div class="card-preview preview-white">
         <div class="ekg-wrap">
           <svg viewBox="0 0 73 27" xmlns="http://www.w3.org/2000/svg">
@@ -387,33 +535,100 @@ fun EkgSweepAnimationDark(modifier: Modifier = Modifier) {
 }
 
 private const val EKG_PATH_DATA = "M0 18.2345H20.8054C22.4342 18.2345 23.9004 17.2468 24.5124 15.7373L30.0311 2.12431C30.3742 1.27817 31.5785 1.2965 31.8956 2.1527L40.0772 24.2428C40.3977 25.1082 41.6194 25.1146 41.949 24.2526L46.5168 12.3059C47.1089 10.7573 48.595 9.73447 50.253 9.73447H73"</div>
-        <button class="copy-btn" onclick="copyCode(this, document.getElementById('ekg-dark-code').innerText)">Copy KMP Code</button>
+        <button
+          class="btn btn-primary copy-btn"
+          data-label="Copy KMP Code"
+          onclick="copyCode(this, document.getElementById('ekg-dark-code').innerText)"
+        >
+          Copy KMP Code
+        </button>
+        <button
+          class="btn btn-secondary"
+          onclick="downloadCode('EkgSweepAnimationDark.kt', document.getElementById('ekg-dark-code').innerText)"
+        >
+          Download .kt
+        </button>
       </div>
     </div>
   </div>
 
 </main>
 
-<footer>Eko Devices · Internal Design Handoff · Not for distribution</footer>
+<footer>Copyright ©2026, Eko Health, Inc. All rights reserved.</footer>
+
+</div>
 
 <script>
   function switchTab(btn, panelId) {
     const card = btn.closest('.card');
-    card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    card.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    const tabs = card.querySelectorAll('[role="tab"]');
+    const panels = card.querySelectorAll('[role="tabpanel"]');
+
+    tabs.forEach(tab => {
+      tab.classList.remove('active');
+      tab.setAttribute('aria-selected', 'false');
+      tab.setAttribute('tabindex', '-1');
+    });
+
+    panels.forEach(panel => {
+      panel.classList.remove('active');
+    });
+
     btn.classList.add('active');
-    document.getElementById(panelId).classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    btn.setAttribute('tabindex', '0');
+
+    const target = card.querySelector('#' + panelId);
+    if (target) {
+      target.classList.add('active');
+    }
   }
 
   function copyCode(btn, code) {
-    navigator.clipboard.writeText(code).then(() => {
-      btn.textContent = '✓ Copied!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copy KMP Code';
-        btn.classList.remove('copied');
-      }, 2000);
-    });
+    const originalLabel = btn.dataset.label || btn.textContent;
+    const writePromise = navigator.clipboard && navigator.clipboard.writeText
+      ? navigator.clipboard.writeText(code)
+      : Promise.reject();
+
+    writePromise
+      .then(() => {
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+      })
+      .catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          btn.textContent = '✓ Copied!';
+          btn.classList.add('copied');
+        } finally {
+          document.body.removeChild(ta);
+        }
+      })
+      .finally(() => {
+        setTimeout(() => {
+          btn.textContent = originalLabel;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+  }
+
+  function downloadCode(filename, code) {
+    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 </script>
 
