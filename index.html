@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eko Motion Catalog</title>
+  <title>Zenith Animation Library</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -25,9 +25,20 @@
       text-align: center;
     }
     .logo {
-      font-size: 13px; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 20px; font-weight: 600;
+      letter-spacing: 0.12em;
       color: #04865F; margin-bottom: 8px;
+      font-family: ui-monospace, 'Cascadia Code', monospace;
+    }
+    .logo-ascii {
+      display: inline-block;
+      animation: zenith-wave 0.78s ease-in-out infinite;
+      transform-origin: bottom center;
+      transform: scale(0.8);
+    }
+    @keyframes zenith-wave {
+      0%, 100% { transform: scale(0.8) rotate(-8deg); }
+      50% { transform: scale(0.8) rotate(8deg); }
     }
     header h1 {
       font-size: clamp(24px, 3.2vw, 28px);
@@ -92,6 +103,70 @@
     .card-body { padding: 20px; background: #ffffff; }
     .card-title { font-size: 15px; font-weight: 600; color: rgba(0,0,0,0.6); margin-bottom: 4px; }
     .card-desc  { font-size: 13px; color: rgba(0,0,0,0.4); margin-bottom: 16px; }
+
+    .card { position: relative; }
+    .card-docs-footer {
+      padding: 14px 20px; text-align: center;
+      border-top: 1px solid #E7E7E7;
+    }
+    .card-docs-link {
+      font-size: 13px; font-weight: 600;
+      color: #04865F; text-decoration: none;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .card-docs-link:hover { color: #03684a; }
+
+    .doc-modal {
+      display: none;
+      position: absolute; inset: 0;
+      z-index: 10;
+      border-radius: 16px;
+      overflow: visible;
+      pointer-events: none;
+    }
+    .doc-modal.open {
+      display: block;
+      pointer-events: auto;
+      z-index: 1000;
+    }
+    .doc-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      cursor: pointer;
+      z-index: 0;
+    }
+    .doc-modal-content {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+      z-index: 1;
+    }
+    .doc-modal .doc-content {
+      flex: 1;
+      font-size: 13px; line-height: 1.6;
+      color: rgba(0,0,0,0.65);
+    }
+    .doc-modal .doc-close-wrap {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #E7E7E7;
+    }
+    .doc-modal .doc-close-wrap .btn { margin-top: 0; }
+    .doc-modal .doc-content p { margin-bottom: 10px; }
+    .doc-modal .doc-content p:last-child,
+    .doc-modal .doc-content ul:last-child { margin-bottom: 0; }
+    .doc-modal .doc-content ul {
+      margin: 6px 0 10px 1.25em; padding: 0;
+    }
+    .doc-modal .doc-content li { margin-bottom: 4px; }
 
     .code-block {
       background: #f9fafb;
@@ -209,7 +284,7 @@
 <div class="page">
 
 <header>
-  <div class="logo">Eko Devices</div>
+  <div class="logo"><span class="logo-ascii">(^_^)/</span></div>
   <h1>Zenith animation library</h1>
   <p>Live animation previews with KMP-ready code for engineers.</p>
 </header>
@@ -350,6 +425,27 @@ fun IndeterminateLoaderSmall(modifier: Modifier = Modifier) {
         >
           Download .kt
         </button>
+      </div>
+    </div>
+
+    <div class="card-docs-footer">
+      <a href="#" class="card-docs-link" onclick="openDocModal(this); return false;">View Documentation</a>
+    </div>
+    <div class="doc-modal" id="spinner-doc-modal" aria-hidden="true">
+      <div class="doc-modal-backdrop" onclick="closeDocModal(this)"></div>
+      <div class="doc-modal-content">
+        <div class="doc-content">
+          <p><strong>When to use:</strong> Loading states during data fetches, form submissions, and async operations where progress cannot be determined.</p>
+          <p><strong>Variants:</strong></p>
+          <ul>
+            <li><strong>Default (24×24):</strong> Lists, cards, full-page loading, and primary content areas.</li>
+            <li><strong>Small (16×16):</strong> Inline with text, buttons, table cells, and compact UI.</li>
+          </ul>
+          <p><strong>Related:</strong> Often paired with skeleton loaders or progress indicators for richer loading UX.</p>
+        </div>
+        <div class="doc-close-wrap">
+          <button class="btn btn-secondary" onclick="closeDocModal(this)">Close</button>
+        </div>
       </div>
     </div>
   </div>
@@ -550,6 +646,27 @@ private const val EKG_PATH_DATA = "M0 18.2345H20.8054C22.4342 18.2345 23.9004 17
         </button>
       </div>
     </div>
+
+    <div class="card-docs-footer">
+      <a href="#" class="card-docs-link" onclick="openDocModal(this); return false;">View Documentation</a>
+    </div>
+    <div class="doc-modal" id="ekg-doc-modal" aria-hidden="true">
+      <div class="doc-modal-backdrop" onclick="closeDocModal(this)"></div>
+      <div class="doc-modal-content">
+        <div class="doc-content">
+          <p><strong>When to use:</strong> Cardiac contexts, device status indicators, recording states, and health-related loading or active states.</p>
+          <p><strong>Variants:</strong></p>
+          <ul>
+            <li><strong>Light:</strong> On dark backgrounds (e.g., device screens, dark mode UI).</li>
+            <li><strong>Dark:</strong> On light backgrounds (e.g., white/light app surfaces, print).</li>
+          </ul>
+          <p><strong>Related:</strong> Use with status text or recording indicators to clarify device state.</p>
+        </div>
+        <div class="doc-close-wrap">
+          <button class="btn btn-secondary" onclick="closeDocModal(this)">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 </main>
@@ -630,7 +747,37 @@ private const val EKG_PATH_DATA = "M0 18.2345H20.8054C22.4342 18.2345 23.9004 17
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+
+  function openDocModal(link) {
+    const card = link.closest('.card');
+    const modal = card.querySelector('.doc-modal');
+    if (!modal) return;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    const onEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeDocModal(modal);
+        document.removeEventListener('keydown', onEscape);
+      }
+    };
+    document.addEventListener('keydown', onEscape);
+    modal._escapeHandler = onEscape;
+  }
+
+  function closeDocModal(btnOrModal) {
+    const modal = btnOrModal.classList?.contains('doc-modal')
+      ? btnOrModal
+      : btnOrModal.closest('.doc-modal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    if (modal._escapeHandler) {
+      document.removeEventListener('keydown', modal._escapeHandler);
+      delete modal._escapeHandler;
+    }
+  }
 </script>
 
 </body>
+</html>
 </html>
